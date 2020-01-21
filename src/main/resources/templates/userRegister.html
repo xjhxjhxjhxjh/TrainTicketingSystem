@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>TrainTicketingSystem</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<script type="text/javascript">
+        function checkPassword() {
+            var pass1 = document.getElementById("uPwd");
+            var pass2 = document.getElementById("uRepwd");
+
+            if (pass1.value != pass2.value)
+                pass2.setCustomValidity("两次输入的密码不匹配");
+            else
+                pass2.setCustomValidity("");
+        }
+</script>
+<body>
+
+<div class="limiter" style="height: 100%">
+    <div class="container-login100" style="background-image:url('images/bg-02.jpg'); height: 100%">
+        <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54" style="opacity: 0.9;">
+            <form id="formid" class="login100-form validate-form" method="post" th:action="@{/userRegisterNow}">
+                <span class="login100-form-title p-b-49">TrainTicketing注册</span>
+
+
+
+                <div class="wrap-input100 validate-input" data-validate="请输入姓名">
+                    <span class="label-input100">姓名</span>
+                    <input class="input100" type="uName" name="uName" placeholder="请输入姓名" id="uName" required>
+                    <span class="focus-input100" data-symbol="&#xf190;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="请输入密码">
+                    <span class="label-input100">密码</span>
+                    <input class="input100" type="password" name="uPwd" placeholder="请输入密码__6~20位" id="uPwd"
+                           pattern="^[a-zA-Z0-9]\w{5,19}$"
+                           required oninvalid="this.setCustomValidity('6~20字母数字或下划线');" oninput="setCustomValidity('')"
+                           onchange="checkPassword()">
+                    <span class="focus-input100" data-symbol="&#xf190;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="请再次输入密码">
+                    <span class="label-input100">确认密码</span>
+                    <input class="input100" type="password" placeholder="请再次输入密码" required onchange="checkPassword()"
+                           id="uRepwd">
+                    <span class="focus-input100" data-symbol="&#xf190;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="请输入手机号">
+                    <span class="label-input100">手机号</span>
+                    <input class="input100" type="uTel" name="uTel" placeholder="请输入手机号"
+                           id="uTel"
+                           pattern="^1(3|4|5|7|8|9)\d{9}$" required oninvalid="this.setCustomValidity('请输入正确的手机号码');"
+                           oninput="setCustomValidity('')">
+                    <span class="focus-input100" data-symbol="&#xf190;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-23" data-validate="请输入身份证号">
+                    <span class="label-input100">身份证号</span>
+                    <input class="input100" type="text" name="uIdCard" id="uIdCard" placeholder="请输入身份证号" autocomplete="off"
+                           pattern="^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$"
+                           required oninvalid="this.setCustomValidity('请输入正确的身份证号码');"
+                           oninput="setCustomValidity('')">
+                    <span class="focus-input100" data-symbol="&#xf206;"></span>
+                </div>
+
+                <br>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button class="login100-form-btn">立即注册</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

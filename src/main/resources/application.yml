@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost/TrainTicketingSystem?characterEncoding=utf-8&useSSL=false
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+server:
+  port: 80
+mybatis:
+  type-aliases-package: com.github.xjhxjhxjhxjh.pojo
+  mapper-locations:  classpath:mybatis/mapper/*.xml
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

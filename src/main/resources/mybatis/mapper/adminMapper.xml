@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.xjhxjhxjh.mapper.AdminMapper">
+
+    <resultMap id="map2" type="route">
+        <id column="rId" property="rId"/>
+        <result column="rDate"  property="rDate"/>
+        <result column="rSeatNum"  property="rSeatNum"/>
+        <association property="rStation" javaType="station">
+            <id column="sId" property="sId"></id>
+            <result column="sName" property="sName"></result>
+            <result column="sCityName" property="sCityName"></result>
+        </association>
+        <association property="rTrain" javaType="train">
+            <id column="tId" property="tId"></id>
+            <result column="tName" property="tName"></result>
+        </association>
+    </resultMap>
+    <select id="selRoute" resultMap="map2">
+        select * from t_route r left join t_station s on s.sId = r.r_sId left join t_train t on tId = r_tId where r_tId = #{tId};
+    </select>
+
+    <resultMap id="map1" type="user">
+        <id column="uId" property="uId" />
+        <result column="uName" property="uName"/>
+        <result column="uPwd" property="uPwd"/>
+        <result column="uIdCard" property="uIdCard"/>
+        <result column="uTel" property="uTel"/>
+        <collection property="uList" ofType="order">
+            <id column="oId" property="oId"/>
+            <result column="oState" property="oState"/>
+            <result column="oPrice" property="oPrice"/>
+            <result column="oSeat" property="oSeat"/>
+            <result column="oTime" property="oTime"/>
+            <result column="oStime" property="oStime"/>
+            <result column="oEtime" property="oEtime"/>
+            <association property="oStart" javaType="station">
+                <id column="s1Id" property="sId"/>
+                <result column="s1Name" property="sName"/>
+                <result column="s1Longitude" property="sLongitude"/>
+                <result column="s1Dimension" property="sDimension"/>
+                <result column="s1CityName" property="sCityName"/>
+            </association>
+            <association property="oEnd" javaType="station">
+                <id column="s2Id" property="sId"/>
+                <result column="s2Name" property="sName"/>
+                <result column="s2Longitude" property="sLongitude"/>
+                <result column="s2Dimension" property="sDimension"/>
+                <result column="s2CityName" property="sCityName"/>
+            </association>
+            <association property="oTrain" javaType="train">
+                <id column="tId" property="tId"/>
+                <result column="tMaxNum" property="tMaxNum"/>
+                <result column="tPrice" property="tPrice"/>
+                <result column="tName" property="tName"/>
+                <result column="tType" property="tType"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="selAllOrder" resultMap="map1">
+        select *, s1.sDimension s1Dimension, s1.sCityName s1CityName, s1.sId s1Id, s1.sLongitude s1Longitude,
+         s1.sName s1Name, s2.sDimension s2Dimension, s2.sCityName s2CityName, s2.sId s2Id, s2.sLongitude s2Longitude,
+         s2.sName s2Name from t_user u left join t_order o on o_uId = uId  left join t_train t
+        on o.o_tid = t.tId left join t_station s1 on s1.sId = o.oStart left join t_station s2
+        on s2.sId = o.oEnd;
+    </select>
+
+</mapper>

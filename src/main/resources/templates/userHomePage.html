@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户主页</title>
+    <link rel="stylesheet" href="adminSource/lib/layui/css/layui.css" media="all">
+    <script src="adminSource/lib/layui/layui.js"></script>
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="adminSource/lib/layui/layui.all.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body class="cal-bg-gray">
+    <div class="container-login100-form-btn">
+        <div class="wrap-login100-form-btn">
+            <div class="login100-form-bgbtn"></div>
+            <button class="login100-form-btn" id="btn1">welcome to 售票系统</button>
+        </div>
+    </div>
+    <br><br><br>
+    <form th:action="@{/findTicket}" class="layui-form" method="post">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <select name="sCity" lay-verify="required" id="sel1">
+                    <option value="">起点城市</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <select name="eCity" lay-verify="required" id="sel2">
+                    <option value="">终点城市</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <select name="tType" lay-verify="required">
+                    <option value="">列车类型</option>
+                    <option value="高铁">高铁</option>
+                    <option value="火车">火车</option>
+                    <option value="都可以">都可以</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="date" name="time" value="2019-07-10" style="display: none; align-items: center" id="time1"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="hidden" th:value="${user.UId}" name="uId">
+                <button class="layui-btn" lay-submit lay-filter="formDemo" id="sbt1" style="display: none">立即查询</button>
+            </div>
+        </div>
+        <div class="flex-col-c p-t-25">
+            <button type="reset" class="layui-btn layui-btn-primary" id="button1">查寻车票</button>
+        </div>
+    </form>
+    <div class="flex-col-c p-t-25">
+        <form method="post" th:action="@{/userOrder}">
+            <input type="hidden" th:value="${user.UId}" name="uId">
+            <input type="submit" value="查看订单" class="layui-btn" lay-submit>
+        </form>
+    </div>
+    <div class="flex-col-c p-t-25">
+        <form method="post" th:action="@{/editUser}">
+            <input type="hidden" th:value="${user.UId}" name="uId">
+            <input type="submit" value="修改用户信息" class="layui-btn" lay-submit>
+        </form>
+    </div>
+</body>
+<script>
+    layui.use('form', function () {
+        var form = layui.form;
+    });
+    $(function () {
+        $("#button1").click(function () {
+            $("#button1").hide();
+            $("#sbt1").css('display','block');
+            $("#time1").css('display','block');
+            $('#sel1').empty();
+            $('#sel2').empty();
+            $("#sel1").append(" <option value=\"\">起点城市</option>");
+            $("#sel2").append(" <option value=\"\">终点城市</option>");
+            $.post("findCityName", function (data) {
+                for(var i in data) {
+                    $("#sel1").append("<option value='" + data[i] + "'>" + data[i] + "</option>");
+                    $("#sel2").append("<option value='" + data[i] + "'>" + data[i] + "</option>");
+                }
+            });
+        });
+    })
+</script>
+<script type="text/javascript">
+    //jquery采用ajax对select动态加载option
+
+</script>
+</html>
